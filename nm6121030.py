@@ -1,5 +1,6 @@
 import argparse
 import itertools
+import time
 
 
 def generate_transactions(input_file):
@@ -9,7 +10,6 @@ def generate_transactions(input_file):
             itemset = line.strip().split()  # list of items
             itemset = [int(item) for item in itemset]
             transactions.append(set(itemset))  # store the itemset as a set
-    print(f"Number of transactions: {len(transactions)}")
     return transactions
 
 
@@ -27,7 +27,7 @@ def apriori(transactions, min_supp):
             else:
                 C1[item] = 1
     total_itemsets = len(C1)  # total itemsets number of the raw transactions
-    print(f"Total number of itemsets in C1: {total_itemsets}")
+    # print(f"Total number of itemsets in C1: {total_itemsets}")
     # fileter out the itemset that does not satisfy the min_supp: L1
     L1 = {}
     for item in list(C1.keys()):
@@ -120,16 +120,23 @@ if __name__ == "__main__":
 
     # read the input file
     transactions = generate_transactions(input_file)
-    # print(transactions)
+
+    ##### start time #####
+    start = time.time()
 
     # apply the apriori algorithm: return the itemsets that satisfy the min_supp
     frequent_itemsets = apriori(transactions, min_supp)
-    # print(f"The frequent itemsets with min_supp = {min_supp} are: {frequent_itemsets}")
-    # print(f"Number of frequent itemsets: {len(frequent_itemsets)}")
-
-    # print the strong association rules
+    # apply the strong association rules: return the rules that satisfy the min_conf
     rules = strong_association_rules(frequent_itemsets, min_conf)
-    # print(f"The strong association rules with min_conf = {min_conf} are: {rules}")
+
+    end = time.time()
+    ##### end time #####
+
+    # information
+    print(f"Number of transactions: {len(transactions)}")
+    print(f"Number of frequent itemsets with min_supp = {min_supp}: {len(frequent_itemsets)}")
+    print(f"Number of strong association rules with min_conf = {min_conf}: {len(rules)}")
+    print(f"Execution time: {end - start:.2f} seconds")
 
     # format the output and write to the output file
     output_path = "output.txt"
