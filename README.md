@@ -39,6 +39,13 @@ In the `output.txt` file, each line contains an strong association rule:
 
 `{item1, item2, ...} -> {item3, item4, ...} (confidence)`
 
+## Time Execution Comparison
+
+| Minimum Support | Minimum Confidence | Time Taken | # of Frequent Itemsets | # of Association Rules |
+| --------------- | ------------------ | ---------- | ---------------------- | ---------------------- |
+| 1500            | 0.5                | 2.30s      | 68                     | 60                     |
+| 1000            | 0.6                | 10.61s     | 135                    | 64                     |
+
 ## Usage
 
 clone the repository and run the following command in the terminal:
