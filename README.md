@@ -44,7 +44,7 @@ In the `output.txt` file, each line contains an strong association rule:
 | Minimum Support | Minimum Confidence | Time Taken | # of Frequent Itemsets | # of Association Rules |
 | --------------- | ------------------ | ---------- | ---------------------- | ---------------------- |
 | 1500            | 0.5                | 2.30s      | 68                     | 60                     |
-| 1000            | 0.6                | 10.61s     | 135                    | 64                     |
+| 1000            | 0.6                | 10.61s     | 135                    | 84                     |
 
 ## Usage
 
