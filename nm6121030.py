@@ -10,6 +10,7 @@ def generate_transactions(input_file):
             itemset = line.strip().split()  # list of items
             itemset = [int(item) for item in itemset]
             transactions.append(set(itemset))  # store the itemset as a set
+    print(f"Number of transactions: {len(transactions)}")
     return transactions
 
 
@@ -26,6 +27,8 @@ def apriori(transactions, min_supp):
                 C1[item] += 1
             else:
                 C1[item] = 1
+    total_itemsets = len(C1)  # total itemsets number of the raw transactions
+    print(f"Total number of itemsets in C1: {total_itemsets}")
     # fileter out the itemset that does not satisfy the min_supp: L1
     L1 = {}
     for item in list(C1.keys()):
@@ -106,21 +109,19 @@ if __name__ == "__main__":
     parser.add_argument("--input", type=str, default="input.txt", help="input file name")
     parser.add_argument("--min_supp", type=int, default=1500, help="input min_supp")
     parser.add_argument("--min_conf", type=float, default=0.5, help="input min_conf")
-
     args = parser.parse_args()
 
-    # read the input file
+    # get the input file, min_supp and min_conf
     input_file = args.input
-    transactions = generate_transactions(input_file)
-    # print(transactions)
-
-    # get the min_supp and min_conf
     min_supp = args.min_supp
     min_conf = args.min_conf
-
     print(f"input file: {input_file}")
     print(f"min_supp: {min_supp}")
     print(f"min_conf: {min_conf}")
+
+    # read the input file
+    transactions = generate_transactions(input_file)
+    # print(transactions)
 
     # apply the apriori algorithm: return the itemsets that satisfy the min_supp
     frequent_itemsets = apriori(transactions, min_supp)
